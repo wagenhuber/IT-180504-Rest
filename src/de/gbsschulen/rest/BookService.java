@@ -4,11 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 
@@ -45,6 +40,17 @@ public class BookService {
     }
 
 
+    public Book deleteBook(int id) {
+        Book book = getBooks(id);
+        if (book != null) {
+            em.getTransaction().begin();
+            em.remove(book);
+            em.getTransaction().commit();
+        }
+        return book;
+    }
+
+
 
     public static void main(String[] args) {
         BookService bookService = new BookService();
@@ -54,5 +60,8 @@ public class BookService {
         bookService.close();
 
     }
+
+
+
 
 }
