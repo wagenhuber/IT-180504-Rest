@@ -1,40 +1,33 @@
 package de.gbsschulen.rest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
-@Path("/books")
+
+@Path("/bookstore")
 public class BookResource {
 
-    private EntityManagerFactory emf;
-    private EntityManager em;
+    private BookService bookService = new BookService();
 
-    public BookResource() {
-        emf = Persistence.createEntityManagerFactory("books");
-        em = emf.createEntityManager();
-    }
-
-    public void close() {
-        if (em != null) {
-            em.close();
-        }
-        if (emf != null) {
-            emf.close();
-        }
-
-    }
+    //http://localhost:8080/rest/bookstore/1
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/{id}")
-    public Book getBooks(@PathParam("id") int id) {
-        return em.find(Book.class, id);
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Book getBook(@PathParam("id") int id) {
+        Book book = bookService.getBooks(id);
+        return book;
+    }
+
+
+    @GET
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
 }
