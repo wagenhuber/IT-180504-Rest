@@ -5,6 +5,7 @@
 	<persistence-unit name="books" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>de.gbsschulen.rest.Book</class>
+		<class>de.gbsschulen.rest2.Book</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bookstore" />
